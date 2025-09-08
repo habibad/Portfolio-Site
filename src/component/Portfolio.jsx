@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, use } from 'react';
 import { ChevronLeft, ChevronRight, Moon, Sun, Mail, Phone, MapPin, Github, ExternalLink, Calendar, Award, Code, Database, Globe, Smartphone, BookOpen, User, Briefcase, FileText, Home, Zap, Brain, Cpu, Layers, Terminal } from 'lucide-react';
 
 const Portfolio = () => {
@@ -9,6 +9,7 @@ const Portfolio = () => {
   const [scrollY, setScrollY] = useState(0);
   const canvasRef = useRef(null);
   const particlesRef = useRef([]);
+//   const mouseRef = useRef();
 
   // Particle system
   useEffect(() => {
@@ -30,6 +31,10 @@ const Portfolio = () => {
         opacity: Math.random() * 0.5 + 0.2
       });
     }
+
+    setInterval(() => {
+        setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
+    }, 5000);
     
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -89,6 +94,10 @@ const Portfolio = () => {
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+      if (mouseRef.current) {
+        mouseRef.current.style.left = `${e.clientX}px`;
+        mouseRef.current.style.top = `${e.clientY}px`;
+    }
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
@@ -250,13 +259,15 @@ const Portfolio = () => {
     }
   };
 
-  const nextProject = () => {
-    setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
-  };
+const nextProject = () => {
+    console.log('Next Project Clicked');
+  setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
+};
 
-  const prevProject = () => {
-    setCurrentProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
-  };
+const prevProject = () => {
+    console.log('Previous Project Clicked');
+  setCurrentProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
+};
 
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
@@ -278,11 +289,13 @@ const Portfolio = () => {
     transition: 'all 0.1s ease',
     filter: 'blur(1px)'
   };
+  
 
   return (
     <div className={`min-h-screen transition-all duration-500 overflow-x-hidden ${darkMode ? 'dark bg-black text-white' : 'bg-gradient-to-br from-gray-50 to-blue-50 text-gray-900'}`}>
       {/* Floating Cursor */}
       <div style={cursorStyle}></div>
+      {/* <div ref={mouseRef} style={{position: "fixed", backgroundColor:"red", width:"100px" , height:"100px" }}></div> */}
       
       {/* Particle Canvas */}
       <canvas 
