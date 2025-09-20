@@ -36,48 +36,45 @@ const Portfolio = () => {
   }, [isAutoRotating, projects.length]);
 
   // Scroll tracking
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrollY(window.scrollY);
       
-      const sections = ['home', 'about', 'experience', 'projects', 'publications', 'contact'];
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      if (current) setActiveSection(current);
-    };
+  //     const sections = ['home', 'about', 'experience', 'projects', 'contact'];
+  //     const current = sections.find(section => {
+  //       const element = document.getElementById(section);
+  //       if (element) {
+  //         const rect = element.getBoundingClientRect();
+  //         return rect.top <= 100 && rect.bottom >= 100;
+  //       }
+  //       return false;
+  //     });
+  //     if (current) setActiveSection(current);
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   const nextProject = () => {
     setIsAutoRotating(false);
     setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
     
-    // Re-enable auto-rotation after 10 seconds of inactivity
-    setTimeout(() => setIsAutoRotating(true), 10000);
+    // setTimeout(() => setIsAutoRotating(true), 10000);
   };
 
   const prevProject = () => {
     setIsAutoRotating(false);
     setCurrentProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
     
-    // Re-enable auto-rotation after 10 seconds of inactivity
-    setTimeout(() => setIsAutoRotating(true), 10000);
+    // setTimeout(() => setIsAutoRotating(true), 10000);
   };
 
   const goToProject = (index) => {
     setIsAutoRotating(false);
     setCurrentProjectIndex(index);
-    
-    // Re-enable auto-rotation after 10 seconds of inactivity
-    setTimeout(() => setIsAutoRotating(true), 10000);
+ 
+    // setTimeout(() => setIsAutoRotating(true), 10000);
   };
 
   const scrollToSection = (sectionId) => {
@@ -116,7 +113,7 @@ const Portfolio = () => {
         projects={projects} 
       />
       
-      <Publications darkMode={darkMode} scrollY={scrollY} publications={publications} />
+      <Publications darkMode={darkMode} />
       
       <Contact darkMode={darkMode} />
       
