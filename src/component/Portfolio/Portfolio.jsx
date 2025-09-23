@@ -15,67 +15,48 @@ import { projects, publications, skills } from './data';
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  // const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
-  const [isAutoRotating, setIsAutoRotating] = useState(true);
+  // const [isAutoRotating, setIsAutoRotating] = useState(true);
 
   // Auto-rotation effect
-  useEffect(() => {
-    let interval;
+  // useEffect(() => {
+  //   let interval;
     
-    if (isAutoRotating) {
-      interval = setInterval(() => {
-        setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
-      }, 5000);
-    }
+  //   if (isAutoRotating) {
+  //     interval = setInterval(() => {
+  //       setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
+  //     }, 5000);
+  //   }
     
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [isAutoRotating, projects.length]);
+  //   return () => {
+  //     if (interval) clearInterval(interval);
+  //   };
+  // }, [isAutoRotating, projects.length]);
 
   // Scroll tracking
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setScrollY(window.scrollY);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
       
-  //     const sections = ['home', 'about', 'experience', 'projects', 'contact'];
-  //     const current = sections.find(section => {
-  //       const element = document.getElementById(section);
-  //       if (element) {
-  //         const rect = element.getBoundingClientRect();
-  //         return rect.top <= 100 && rect.bottom >= 100;
-  //       }
-  //       return false;
-  //     });
-  //     if (current) setActiveSection(current);
-  //   };
+      const sections = ['home', 'about', 'experience', 'projects', 'contact'];
+      const current = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (current) setActiveSection(current);
+    };
 
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const nextProject = () => {
-    setIsAutoRotating(false);
-    setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
-    
-    // setTimeout(() => setIsAutoRotating(true), 10000);
-  };
-
-  const prevProject = () => {
-    setIsAutoRotating(false);
-    setCurrentProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
-    
-    // setTimeout(() => setIsAutoRotating(true), 10000);
-  };
-
-  const goToProject = (index) => {
-    setIsAutoRotating(false);
-    setCurrentProjectIndex(index);
- 
-    // setTimeout(() => setIsAutoRotating(true), 10000);
-  };
+  
 
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
@@ -106,10 +87,6 @@ const Portfolio = () => {
       <Projects 
         darkMode={darkMode} 
         scrollY={scrollY} 
-        currentProjectIndex={currentProjectIndex} 
-        nextProject={nextProject} 
-        prevProject={prevProject}
-        goToProject={goToProject}
         projects={projects} 
       />
       

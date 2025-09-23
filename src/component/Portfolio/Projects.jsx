@@ -1,7 +1,47 @@
-import React from 'react';
-import { ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, ChevronRightIcon, ExternalLink, Github } from 'lucide-react';
 
-const Projects = ({ darkMode, scrollY, currentProjectIndex, nextProject, prevProject, goToProject, projects }) => {
+
+const Projects = ({ darkMode, scrollY, projects }) => {
+
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [isAutoRotating, setIsAutoRotating] = useState(true);
+
+   // Auto-rotation effect
+  // useEffect(() => {
+  //   let interval;
+    
+  //   if (isAutoRotating) {
+  //     interval = setInterval(() => {
+  //       setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
+  //     }, 5000);
+  //   }
+    
+  //   return () => {
+  //     if (interval) clearInterval(interval);
+  //   };
+  // }, [isAutoRotating, projects.length]);
+
+  const nextProject = () => {
+    setIsAutoRotating(false);
+    setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
+
+    setTimeout(() => setIsAutoRotating(true), 10000);
+  };
+  const prevProject = () => {
+    console.log('prev clicked');
+    setIsAutoRotating(false);
+    setCurrentProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
+
+    setTimeout(() => setIsAutoRotating(true), 10000);
+  };
+
+  const goToProject = (index) => {
+    setIsAutoRotating(false);
+    setCurrentProjectIndex(index);
+ 
+    setTimeout(() => setIsAutoRotating(true), 10000);
+  };
   return (
     <section id="projects" className={`py-32 relative overflow-hidden ${darkMode ? 'bg-gradient-to-br from-black via-gray-900 to-black' : 'bg-gradient-to-br from-white via-blue-50 to-purple-50'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -27,7 +67,7 @@ const Projects = ({ darkMode, scrollY, currentProjectIndex, nextProject, prevPro
             }}
           >
             {/* Animated Background Gradient */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${projects[currentProjectIndex].gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500 rounded-[2rem]`}></div>
+            <div className={`absolute inset-0 bg-gradient-to-br ${projects[currentProjectIndex].gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500 rounded-[2rem] pointer-events-none`}></div>
             
             {/* Floating Project Icon */}
             <div className="absolute top-8 right-8">
@@ -81,13 +121,13 @@ const Projects = ({ darkMode, scrollY, currentProjectIndex, nextProject, prevPro
 
                 {/* Action Buttons */}
                 <div className="flex gap-4">
-                  <button className={`px-6 py-3 rounded-xl font-bold text-white bg-gradient-to-r ${projects[currentProjectIndex].gradient} transform hover:scale-110 transition-all duration-300 shadow-lg flex items-center gap-2`}>
+                  <button type="button" className={`px-6 py-3 rounded-xl font-bold text-white bg-gradient-to-r ${projects[currentProjectIndex].gradient} transform hover:scale-110 transition-all duration-300 shadow-lg flex items-center gap-2 pointer-events-auto`}>
                     <ExternalLink size={18} />
                     Live Demo
                   </button>
-                  <button className={`px-6 py-3 rounded-xl font-bold border-2 transition-all duration-300 hover:scale-110 ${
+                  <button type="button" className={`px-6 py-3 rounded-xl font-bold border-2 transition-all duration-300 hover:scale-110 ${
                     darkMode ? 'border-white/20 text-white hover:bg-white/10' : 'border-gray-300 text-gray-700 hover:bg-gray-100'
-                  } flex items-center gap-2`}>
+                  } flex items-center gap-2 pointer-events-auto`}>
                     <Github size={18} />
                     Source
                   </button>
@@ -141,9 +181,8 @@ const Projects = ({ darkMode, scrollY, currentProjectIndex, nextProject, prevPro
 
             {/* Enhanced Carousel Controls */}
             <div className="flex items-center justify-center mt-12 gap-8">
-              <button
-                onClick={prevProject}
-                className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-blue-500/25`}
+              <button type="button" onClick={prevProject}
+                className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-blue-500/25 pointer-events-auto`}
               >
                 <ChevronLeft size={28} />
               </button>
@@ -152,6 +191,7 @@ const Projects = ({ darkMode, scrollY, currentProjectIndex, nextProject, prevPro
               <div className="flex gap-3">
                 {projects.map((_, index) => (
                   <button
+                    type="button"
                     key={index}
                     onClick={() => goToProject(index)}
                     className={`transition-all duration-300 rounded-full ${
@@ -164,8 +204,9 @@ const Projects = ({ darkMode, scrollY, currentProjectIndex, nextProject, prevPro
               </div>
 
               <button
+                type="button"
                 onClick={nextProject}
-                className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-lg hover:shadow-purple-500/25`}
+                className={`p-4 rounded-2xl transition-all duration-300 hover:scale-110 bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-lg hover:shadow-purple-500/25 pointer-events-auto`}
               >
                 <ChevronRight size={28} />
               </button>

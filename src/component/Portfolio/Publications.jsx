@@ -45,7 +45,8 @@ const Publications = ({ darkMode, scrollY }) => {
       const mainTrigger = ScrollTrigger.create({
         trigger: publicationsRef.current,
         start: "top top",
-        end: () => `+=${(cards.length - 1) * window.innerHeight * 1.2}`, // Adjusted for better spacing
+        // Use full cards.length to give each card its own scroll segment
+        end: () => `+=${cards.length * window.innerHeight * 1.2}`,
         pin: true,
         scrub: 1,
         anticipatePin: 1,
@@ -54,7 +55,8 @@ const Publications = ({ darkMode, scrollY }) => {
           
           const progress = self.progress;
           const totalCards = cards.length;
-          const progressPerCard = 1 / (totalCards - 1);
+          // Divide the scroll progress into totalCards segments so the last card has a valid range
+          const progressPerCard = 1 / totalCards;
           
           cards.forEach((card, index) => {
             const cardStartProgress = index * progressPerCard;
@@ -138,7 +140,7 @@ const Publications = ({ darkMode, scrollY }) => {
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex flex-col"
       >
         {/* Fixed Header */}
-        <div className="text-center pt-20 pb-20">
+        <div className="text-center pt-36 pb-12">
           <h2 className="publications-title text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
             RESEARCH IMPACT
           </h2>

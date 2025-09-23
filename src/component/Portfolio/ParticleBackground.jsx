@@ -64,10 +64,10 @@ const ParticleBackground = ({ darkMode }) => {
         });
       });
       
-      // requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
     };
     
-    // animate();
+    animate();
     
     const handleResize = () => {
       canvas.width = window.innerWidth;

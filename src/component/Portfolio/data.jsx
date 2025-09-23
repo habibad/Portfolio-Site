@@ -1,134 +1,143 @@
 export const projects = [
   {
-    title: "🧠 DeepCerviNet AI",
-    subtitle: "Advanced Medical AI System",
-    description: "Revolutionary ML-based recommendation system using cutting-edge sentiment analysis and multi-model ensemble learning to predict optimal shopping experiences.",
-    technologies: ["Python", "Flask", "BERT", "RoBERTa", "DistilBERT", "LSTM", "Bi-LSTM", "TensorFlow", "React"],
+    title: "🛒 Online Shop Recommendation System",
+    subtitle: "Thesis Project",
+    description: "Machine learning-based web application that recommends the best shop for specific products by analyzing user reviews and prices.",
+    technologies: ["Python", "Flask", "BERT", "RoBERTa", "DistilBERT", "LSTM", "Bi-LSTM", "HTML", "CSS"],
     features: [
-      "🎯 Custom neural network architecture with 94% accuracy",
-      "🔥 Real-time sentiment analysis using transformer models",
-      "⚡ Lightning-fast prediction engine with sub-100ms response",
-      "📊 Advanced data visualization dashboard",
-      "🚀 Auto-scaling cloud deployment on AWS"
+      "📊 Custom dataset collection from Daraz platform",
+      "🔍 Dynamic sentiment labeling using NLP techniques",
+      "🧠 Multiple ML model comparison and evaluation",
+      "📈 Weighted average calculation for shop rankings",
+      "🌐 Web deployment using Flask framework"
     ],
-    gradient: "from-pink-500 via-red-500 to-yellow-500",
-    icon: "Brain"
+    gradient: "from-blue-500 via-teal-500 to-green-500",
+    icon: "ShoppingCart"
   },
   {
-    title: "⚗️ Al-Chemist Platform",
-    subtitle: "Next-Gen E-commerce",
-    description: "Ultra-modern chemical products marketplace with AI-powered inventory management, blockchain payments, and AR product visualization.",
-    technologies: ["React", "Node.js", "PostgreSQL", "Redis", "Docker", "Kubernetes", "WebAR", "Blockchain"],
+    title: "⚗️ Al-Chemist Website",
+    subtitle: "E-commerce Platform",
+    description: "Fully functional and responsive website for selling chemical products with integrated shopping features.",
+    technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "JQuery", "Bootstrap"],
     features: [
-      "🔮 AR product visualization in 3D space",
-      "🛡️ Blockchain-secured payment gateway",
-      "🤖 AI-powered inventory optimization",
-      "⚡ Real-time collaborative filtering",
-      "🌊 Fluid micro-animations throughout"
+      "📱 Responsive design for all device sizes",
+      "🛒 Product catalog and shopping functionality",
+      "💾 MySQL database integration",
+      "🎨 Bootstrap-based UI components",
+      "⚙️ Backend management with PHP"
     ],
     gradient: "from-green-400 via-blue-500 to-purple-600",
-    icon: "Layers"
+    icon: "Flask"
   },
   {
-    title: "📱 Neural Event Hub",
-    subtitle: "AI-Powered Event Manager",
-    description: "Intelligent event management system with predictive analytics, smart notifications, and seamless cross-platform synchronization.",
-    technologies: ["React Native", "Python", "FastAPI", "MongoDB", "Redis", "TensorFlow", "Socket.io"],
+    title: "📅 Event Management System",
+    subtitle: "Android Application",
+    description: "Mobile application for event management with scheduling and notification features.",
+    technologies: ["Java", "Android Studio", "SQLite", "OOP"],
     features: [
-      "🧠 Predictive event conflict resolution",
-      "🔔 Context-aware smart notifications",
-      "🌐 Real-time collaborative planning",
-      "📈 Advanced analytics dashboard",
-      "⚡ Offline-first architecture"
+      "📋 Event creation and management",
+      "⏰ Scheduled notifications",
+      "📱 User-friendly Android interface",
+      "💾 Local data storage with SQLite",
+      "🔄 OOP-based architecture"
     ],
     gradient: "from-purple-600 via-pink-600 to-red-600",
-    icon: "Zap"
+    icon: "Calendar"
   },
   {
-    title: "🎯 Quantum Quiz Engine",
-    subtitle: "Adaptive Learning Platform",
-    description: "Next-generation quiz platform with adaptive difficulty adjustment, real-time multiplayer battles, and personalized learning paths.",
-    technologies: ["Vue.js", "Python", "Django", "WebSocket", "ML", "D3.js", "WebGL"],
+    title: "❓ Quizler App",
+    subtitle: "Quiz Application",
+    description: "Interactive quiz platform with admin interface for question management and user category selection.",
+    technologies: ["Java", "Android Studio", "SQLite", "OOP", "MySQL"],
     features: [
-      "🎮 Real-time multiplayer quiz battles",
-      "🎨 Stunning WebGL visualizations",
-      "🧠 Adaptive difficulty AI algorithm",
-      "📊 Comprehensive learning analytics",
-      "🏆 Gamified achievement system"
+      "👤 Admin CRUD operations for questions",
+      "📚 Multiple quiz categories",
+      "💻 Remote server with PHP and MySQL",
+      "📊 User progress tracking",
+      "🎮 Interactive quiz interface"
     ],
     gradient: "from-blue-400 via-purple-500 to-pink-500",
-    icon: "Terminal"
+    icon: "HelpCircle"
   },
   {
-    title: "💱 CryptoForex AI",
-    subtitle: "Intelligent Trading Platform",
-    description: "Advanced currency conversion platform with AI-powered trend prediction, real-time market analysis, and automated trading recommendations.",
-    technologies: ["React", "Python", "FastAPI", "TimeSeries", "WebSocket", "Chart.js", "Redis"],
+    title: "💱 Currency Converter",
+    subtitle: "Desktop Application",
+    description: "Currency conversion application with global exchange rate synchronization.",
+    technologies: ["HTML", "CSS", "JavaScript", "API integration"],
     features: [
-      "📈 AI-powered market trend prediction",
-      "⚡ Real-time currency rate streaming",
-      "🎯 Smart trading recommendations",
-      "📊 Interactive financial charts",
-      "🔐 Bank-grade security protocols"
+      "🌍 Multi-currency support",
+      "📈 Real-time exchange rates",
+      "⚡ Fast conversion calculations",
+      "🔗 API integration for latest rates",
+      "🖥️ User-friendly desktop interface"
     ],
     gradient: "from-yellow-400 via-red-500 to-pink-500",
-    icon: "Cpu"
+    icon: "DollarSign"
   }
 ];
 
 export const publications = [
   {
-    title: "DeepCerviNet: Revolutionary Cancer Classification AI",
+    title: "DeepCerviNet: Enhance Cervical Cancer Classification using Supervised Learning Model",
     conference: "RAICON 2024",
     date: "Dec 2024",
     status: "Published",
     authors: "Md Anikur Rahaman, Maksura Binte Rabbani Nuha, Md Safin, Al Hossain, Dr. Raihan Ul Islam",
-    impact: "🏆 Best Paper Award",
-    citations: "12+"
+    impact: "IEEE Xplore Published",
+    link: "IEEE Xplore | Publication"
   },
   {
-    title: "Semi-Supervised Learning for Enhanced Medical Prognosis",
+    title: "Enhancing Cervical Cancer Detection: Leveraging Semi-Supervised Learning for Improved Prognosis",
     conference: "ICCIT 2024",
     date: "June 2025",
     status: "Accepted",
     authors: "Md Safin, Maksura Binte Rabbani Nuha, Al Hossain, Md Anikur Rahaman, Dr. Raihan Ul Islam",
-    impact: "🌟 Featured Article",
-    citations: "8+"
+    impact: "IEEE Xpore Publication",
+    link: "IEEE Xplore | Publication"
   },
   {
-    title: "Quantum-Inspired Cloud Computing Optimization",
+    title: "Cervical Cancer Classification: Deep Learning Techniques using Fix Match Semi Supervised Approach",
     conference: "ICDMIS 2024",
-    date: "Jan 2025",
+    date: "August 2025",
+    status: "Accepted",
+    authors: "Md Anikur Rahaman, Zeshan Ahmed, Dr. Ahmed Wasif Reza, KM Safin Kamal",
+    impact: "Springer Nature Published",
+    link: "Springer Nature Link | Publication"
+  },
+  {
+    title: "Strategic Process Optimization in Energy-Efficient Cloud Computing: Harnessing Heuristic-Based Greedy Algorithms",
+    conference: "ICDMIS 2024",
+    date: "Dec 2024",
     status: "Under Review",
     authors: "Md Anikur Rahaman, Mahmudul Hasan, Joy Datta, Dr. Ahmed Wasif Reza, KM Safin Kamal",
-    impact: "🚀 Breakthrough Research",
-    citations: "Pending"
+    impact: "Resource Allocation Research",
+    link: "Research Microsoft Conference"
   }
 ];
 
 export const skills = {
-  "🎨 Frontend Mastery": {
-    items: ["React.js", "Vue.js", "Next.js", "TypeScript", "Tailwind", "Three.js"],
-    color: "from-pink-500 to-rose-500"
-  },
-  "⚡ Backend Power": {
-    items: ["Python", "Node.js", "FastAPI", "Django", "PostgreSQL", "Redis"],
+  "💻 Programming Languages": {
+    items: ["Java", "Python", "JavaScript", "PHP", "C", "SQL", "HTML", "CSS"],
     color: "from-blue-500 to-cyan-500"
   },
-  "🧠 AI/ML Expertise": {
-    items: ["TensorFlow", "PyTorch", "BERT", "GPT", "Computer Vision", "NLP"],
-    color: "from-purple-500 to-indigo-500"
-  },
-  "📱 Mobile Innovation": {
-    items: ["React Native", "Flutter", "Android", "iOS", "Progressive Web Apps"],
+  "🌐 Web Development": {
+    items: ["ReactJs", "Flask", "WordPress", "HTML", "CSS", "JavaScript", "Bootstrap", "JQuery"],
     color: "from-green-500 to-emerald-500"
   },
-  "☁️ Cloud & DevOps": {
-    items: ["AWS", "Docker", "Kubernetes", "CI/CD", "Microservices", "Serverless"],
+  "🧠 AI/ML & Data Science": {
+    items: ["Machine Learning", "Deep Learning", "NLP", "BERT", "RoBERTa", "DistilBERT", "LSTM", "Bi-LSTM"],
+    color: "from-purple-500 to-indigo-500"
+  },
+  "📱 Mobile Development": {
+    items: ["Android Studio", "Java", "SQLite", "OOP"],
+    color: "from-pink-500 to-rose-500"
+  },
+  "🗄️ Databases & Technologies": {
+    items: ["MySQL", "MongoDB", "Microsoft SQL Server", "Oracle Apex", "Apache", "MatLab"],
     color: "from-orange-500 to-red-500"
   },
-  "🔧 Tools & More": {
-    items: ["Git", "VS Code", "Figma", "Postman", "MongoDB", "GraphQL"],
+  "🔧 Tools & Platforms": {
+    items: ["Git", "Google Colab", "Kaggle", "API Integration"],
     color: "from-yellow-500 to-amber-500"
   }
 };
