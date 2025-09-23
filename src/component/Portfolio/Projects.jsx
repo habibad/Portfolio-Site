@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, ChevronRightIcon, ExternalLink, Github } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronRightIcon, ExternalLink, Github, Link } from 'lucide-react';
 
 
 const Projects = ({ darkMode, scrollY, projects }) => {
@@ -7,20 +7,6 @@ const Projects = ({ darkMode, scrollY, projects }) => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [isAutoRotating, setIsAutoRotating] = useState(true);
 
-   // Auto-rotation effect
-  // useEffect(() => {
-  //   let interval;
-    
-  //   if (isAutoRotating) {
-  //     interval = setInterval(() => {
-  //       setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
-  //     }, 5000);
-  //   }
-    
-  //   return () => {
-  //     if (interval) clearInterval(interval);
-  //   };
-  // }, [isAutoRotating, projects.length]);
 
   const nextProject = () => {
     setIsAutoRotating(false);
@@ -39,7 +25,7 @@ const Projects = ({ darkMode, scrollY, projects }) => {
   const goToProject = (index) => {
     setIsAutoRotating(false);
     setCurrentProjectIndex(index);
- 
+
     setTimeout(() => setIsAutoRotating(true), 10000);
   };
   return (
@@ -58,9 +44,8 @@ const Projects = ({ darkMode, scrollY, projects }) => {
         {/* 3D Project Card */}
         <div className="relative perspective-1000">
           <div
-            className={`relative p-10 rounded-[2rem] backdrop-blur-lg border-2 transition-all duration-700 hover:scale-105 group overflow-hidden ${
-              darkMode ? 'bg-white/5 border-white/10 hover:border-purple-400/50' : 'bg-white/30 border-white/30 hover:border-purple-400/50'
-            }`}
+            className={`relative p-10 rounded-[2rem] backdrop-blur-lg border-2 transition-all duration-700 hover:scale-105 group overflow-hidden ${darkMode ? 'bg-white/5 border-white/10 hover:border-purple-400/50' : 'bg-white/30 border-white/30 hover:border-purple-400/50'
+              }`}
             style={{
               transform: `rotateX(${Math.sin(scrollY * 0.001) * 2}deg) rotateY(${Math.cos(scrollY * 0.001) * 2}deg)`,
               boxShadow: `0 25px 50px -12px ${darkMode ? 'rgba(168, 85, 247, 0.25)' : 'rgba(147, 51, 234, 0.25)'}`
@@ -68,13 +53,13 @@ const Projects = ({ darkMode, scrollY, projects }) => {
           >
             {/* Animated Background Gradient */}
             <div className={`absolute inset-0 bg-gradient-to-br ${projects[currentProjectIndex].gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500 rounded-[2rem] pointer-events-none`}></div>
-            
+
             {/* Floating Project Icon */}
             <div className="absolute top-8 right-8">
               <div className={`p-4 rounded-2xl bg-gradient-to-br ${projects[currentProjectIndex].gradient} shadow-lg transform rotate-12 group-hover:rotate-0 transition-transform duration-500`}>
-                {React.createElement(projects[currentProjectIndex].icon, { 
-                  size: 32, 
-                  className: "text-white drop-shadow-lg" 
+                {React.createElement(projects[currentProjectIndex].icon, {
+                  size: 32,
+                  className: "text-white drop-shadow-lg"
                 })}
               </div>
             </div>
@@ -104,10 +89,9 @@ const Projects = ({ darkMode, scrollY, projects }) => {
                     {projects[currentProjectIndex].features.map((feature, index) => (
                       <div
                         key={index}
-                        className={`flex items-start gap-3 p-3 rounded-xl transition-all duration-300 hover:scale-105 ${
-                          darkMode ? 'hover:bg-white/5' : 'hover:bg-white/20'
-                        }`}
-                        style={{ 
+                        className={`flex items-start gap-3 p-3 rounded-xl transition-all duration-300 hover:scale-105 ${darkMode ? 'hover:bg-white/5' : 'hover:bg-white/20'
+                          }`}
+                        style={{
                           animationDelay: `${index * 0.1}s`,
                           transform: `translateX(${Math.sin(Date.now() / 1000 + index * 0.5) * 3}px)`
                         }}
@@ -121,16 +105,22 @@ const Projects = ({ darkMode, scrollY, projects }) => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-4">
-                  <button type="button" className={`px-6 py-3 rounded-xl font-bold text-white bg-gradient-to-r ${projects[currentProjectIndex].gradient} transform hover:scale-110 transition-all duration-300 shadow-lg flex items-center gap-2 pointer-events-auto`}>
+                  <a href={projects[currentProjectIndex].live_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`px-6 py-3 rounded-xl font-bold text-white bg-gradient-to-r ${projects[currentProjectIndex].gradient} transform hover:scale-110 transition-all duration-300 shadow-lg flex items-center gap-2 pointer-events-auto`}
+                  >
                     <ExternalLink size={18} />
                     Live Demo
-                  </button>
-                  <button type="button" className={`px-6 py-3 rounded-xl font-bold border-2 transition-all duration-300 hover:scale-110 ${
-                    darkMode ? 'border-white/20 text-white hover:bg-white/10' : 'border-gray-300 text-gray-700 hover:bg-gray-100'
-                  } flex items-center gap-2 pointer-events-auto`}>
+                  </a>
+                  <a href={projects[currentProjectIndex].github_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`px-6 py-3 rounded-xl font-bold text-white bg-gradient-to-r ${projects[currentProjectIndex].gradient} transform hover:scale-110 transition-all duration-300 shadow-lg flex items-center gap-2 pointer-events-auto`}
+                  >
                     <Github size={18} />
                     Source
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -141,9 +131,8 @@ const Projects = ({ darkMode, scrollY, projects }) => {
                   {projects[currentProjectIndex].technologies.map((tech, index) => (
                     <div
                       key={index}
-                      className={`p-4 rounded-2xl backdrop-blur-lg border text-center transition-all duration-500 hover:scale-110 group cursor-pointer ${
-                        darkMode ? 'bg-white/5 border-white/10 hover:border-purple-400/50' : 'bg-white/20 border-white/30 hover:border-purple-400/50'
-                      }`}
+                      className={`p-4 rounded-2xl backdrop-blur-lg border text-center transition-all duration-500 hover:scale-110 group cursor-pointer ${darkMode ? 'bg-white/5 border-white/10 hover:border-purple-400/50' : 'bg-white/20 border-white/30 hover:border-purple-400/50'
+                        }`}
                       style={{
                         animationDelay: `${index * 0.05}s`,
                         transform: `translateY(${Math.sin(Date.now() / 800 + index) * 5}px) rotate(${Math.sin(Date.now() / 1200 + index) * 2}deg)`
@@ -157,9 +146,8 @@ const Projects = ({ darkMode, scrollY, projects }) => {
                 </div>
 
                 {/* Performance Metrics */}
-                <div className={`p-6 rounded-2xl backdrop-blur-lg border mt-8 ${
-                  darkMode ? 'bg-white/5 border-white/10' : 'bg-white/20 border-white/30'
-                }`}>
+                <div className={`p-6 rounded-2xl backdrop-blur-lg border mt-8 ${darkMode ? 'bg-white/5 border-white/10' : 'bg-white/20 border-white/30'
+                  }`}>
                   <h5 className="text-lg font-bold mb-4 text-center">📊 Performance Stats</h5>
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
@@ -194,11 +182,10 @@ const Projects = ({ darkMode, scrollY, projects }) => {
                     type="button"
                     key={index}
                     onClick={() => goToProject(index)}
-                    className={`transition-all duration-300 rounded-full ${
-                      index === currentProjectIndex
+                    className={`transition-all duration-300 rounded-full ${index === currentProjectIndex
                         ? `w-12 h-4 bg-gradient-to-r ${projects[index].gradient}`
                         : 'w-4 h-4 bg-gray-400 hover:bg-gray-300'
-                    }`}
+                      }`}
                   />
                 ))}
               </div>

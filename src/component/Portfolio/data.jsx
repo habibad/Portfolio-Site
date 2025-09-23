@@ -12,7 +12,9 @@ export const projects = [
       "🌐 Web deployment using Flask framework"
     ],
     gradient: "from-blue-500 via-teal-500 to-green-500",
-    icon: "ShoppingCart"
+    icon: "ShoppingCart",
+    github_link: "#",
+    live_link: "#"
   },
   {
     title: "⚗️ Al-Chemist Website",
@@ -27,7 +29,9 @@ export const projects = [
       "⚙️ Backend management with PHP"
     ],
     gradient: "from-green-400 via-blue-500 to-purple-600",
-    icon: "Flask"
+    icon: "Flask",
+    github_link: "https://github.com/habibad/chemical-product-selling-website",
+    live_link: "#"
   },
   {
     title: "📅 Event Management System",
@@ -42,7 +46,9 @@ export const projects = [
       "🔄 OOP-based architecture"
     ],
     gradient: "from-purple-600 via-pink-600 to-red-600",
-    icon: "Calendar"
+    icon: "Calendar",
+    github_link: "#",
+    live_link: "#"
   },
   {
     title: "❓ Quizler App",
@@ -57,7 +63,9 @@ export const projects = [
       "🎮 Interactive quiz interface"
     ],
     gradient: "from-blue-400 via-purple-500 to-pink-500",
-    icon: "HelpCircle"
+    icon: "HelpCircle",
+    github_link: "https://github.com/habibad/Event-Management-System-Android-App",
+    live_link: "#"
   },
   {
     title: "💱 Currency Converter",
@@ -72,7 +80,9 @@ export const projects = [
       "🖥️ User-friendly desktop interface"
     ],
     gradient: "from-yellow-400 via-red-500 to-pink-500",
-    icon: "DollarSign"
+    icon: "DollarSign",
+    github_link: "https://github.com/habibad/currency-converter-project",
+    live_link: "https://currency-converter-project-murex.vercel.app/"
   }
 ];
 
@@ -90,7 +100,7 @@ export const publications = [
     title: "Enhancing Cervical Cancer Detection: Leveraging Semi-Supervised Learning for Improved Prognosis",
     conference: "ICCIT 2024",
     date: "June 2025",
-    status: "Accepted",
+    status: "Published",
     authors: "Md Safin, Maksura Binte Rabbani Nuha, Al Hossain, Md Anikur Rahaman, Dr. Raihan Ul Islam",
     impact: "IEEE Xpore Publication",
     link: "IEEE Xplore | Publication"
@@ -99,7 +109,7 @@ export const publications = [
     title: "Cervical Cancer Classification: Deep Learning Techniques using Fix Match Semi Supervised Approach",
     conference: "ICDMIS 2024",
     date: "August 2025",
-    status: "Accepted",
+    status: "Published",
     authors: "Md Anikur Rahaman, Zeshan Ahmed, Dr. Ahmed Wasif Reza, KM Safin Kamal",
     impact: "Springer Nature Published",
     link: "Springer Nature Link | Publication"

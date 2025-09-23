@@ -66,12 +66,32 @@ const About = ({ darkMode, scrollY, skills }) => {
           </div>
           {/* Right side - Skills Matrix */}
           <div className='h-[600px] w-1/2 overflow-y-scroll scrollbar-hide relative group p-3'>
-          <div className='absolute top-0 left-0 w-full h-full z-30 flex items-center justify-center group-hover:z-0 group-hover:hidden hover:hidden' style={{background: 'radial-gradient(circle, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 100%)'}}>
-            <div className="w-20 h-20  z-40 flex flex-col justify-center items-center " style={{background: 'radial-gradient(circle, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 100%)'}}>
-              <span>Scroll</span>
-              <span><TfiAngleDoubleDown /></span>
+            <div className='absolute top-0 left-0 w-full h-full z-30 flex items-center justify-center group-hover:z-0 group-hover:hidden hover:hidden' style={{ background: 'radial-gradient(circle, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 100%)' }}>
+              <div className="w-20 h-20 z-40 flex flex-col justify-center items-center">
+                <span className="text-base font-semibold text-white mb-2 animate-fade-in">Scroll</span>
+                <span className="text-3xl text-blue-400 animate-bounce-slow">
+                  <TfiAngleDoubleDown />
+                </span>
+                <style>
+                  {`
+                      @keyframes fade-in {
+                        0% { opacity: 0; transform: translateY(10px);}
+                        100% { opacity: 1; transform: translateY(0);}
+                      }
+                      .animate-fade-in {
+                        animation: fade-in 1s ease-out;
+                      }
+                      @keyframes bounce-slow {
+                        0%, 100% { transform: translateY(0);}
+                        50% { transform: translateY(16px);}
+                      }
+                      .animate-bounce-slow {
+                        animation: bounce-slow 1.5s infinite;
+                      }
+                  `}
+                </style>
+              </div>
             </div>
-          </div>
 
             <div className="grid grid-cols-1 gap-6 cursor-pointer">
               {Object.entries(skills).map(([category, { items, color }], index) => (
