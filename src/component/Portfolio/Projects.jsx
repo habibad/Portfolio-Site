@@ -85,7 +85,7 @@ const Projects = ({ darkMode, scrollY, projects }) => {
                 {/* Features List */}
                 <div>
                   <h4 className="text-xl font-bold mb-4 text-white">✨ Key Features</h4>
-                  <div className="space-y-3">
+                  <div className="space-y-1">
                     {projects[currentProjectIndex].features.map((feature, index) => (
                       <div
                         key={index}

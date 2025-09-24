@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Zap, Mail, Code, Award, Layers, Download, X } from 'lucide-react';
-import Resume_pdf from '../../assets/Md_Anikur_Rahaman .pdf';
 import gsap from 'gsap';
-
-
+import Modal from '../modal/modal';
 const Hero = ({ scrollToSection, darkMode }) => {
   const [showPdfModal, setShowPdfModal] = useState(false);
   
@@ -15,52 +13,9 @@ const Hero = ({ scrollToSection, darkMode }) => {
     { label: "Coffee Cups", value: "∞", icon: Zap }
   ];
 
-  // PDF Modal Component
-  const PdfModal = () => {
-    if (!showPdfModal) return null;
-
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
-        <div className={`relative w-full max-w-4xl h-[90vh] rounded-2xl overflow-hidden shadow-2xl ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
-          {/* Modal Header */}
-          <div className={`flex justify-between items-center p-4 ${darkMode ? 'bg-gray-900' : 'bg-gray-100'}`}>
-            <h2 className="text-xl font-bold">My Resume</h2>
-            <div className="flex space-x-3">
-              {/* Download Button */}
-              <a
-                href={Resume_pdf}
-                download
-                className={`p-2 rounded-full ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-700'} transition-colors`}
-                title="Download Resume"
-              >
-                <Download size={20} />
-              </a>
-              {/* Close Button */}
-              <button
-                onClick={() => setShowPdfModal(false)}
-                className={`p-2 rounded-full ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-700'} transition-colors`}
-                title="Close"
-              >
-                <X size={20} />
-              </button>
-            </div>
-          </div>
-
-          {/* PDF Viewer */}
-          <div className="h-[calc(90vh-72px)] overflow-auto">
-            <iframe
-              src={Resume_pdf}
-              className="w-full h-full"
-              title="Resume PDF"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
 
 
-      const heroTexts = [
+  const heroTexts = [
     "Hi, I am Anikur",
     "Hi, I am a Web Designer & Developer",
     "Hi, I am a Researcher",
@@ -97,7 +52,7 @@ const Hero = ({ scrollToSection, darkMode }) => {
           );
         }
       });
-    }, 5000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [currentText]);
@@ -134,7 +89,11 @@ const Hero = ({ scrollToSection, darkMode }) => {
                 transform: "scale(1)"
               }}
             >
-              {heroTexts[currentText]}
+              {heroTexts[currentText].split('').map((ch, i) => (
+                <span key={i} className="char inline-block" aria-hidden={ch === ' ' ? 'true' : 'false'}>
+                  {ch === ' ' ? '\u00A0' : ch}
+                </span>
+              ))}
             </span>
           </div>
 
@@ -243,8 +202,8 @@ const Hero = ({ scrollToSection, darkMode }) => {
         </div>
       </section>
 
-      {/* PDF Modal */}
-      <PdfModal />
+  {/* PDF Modal */}
+  <Modal showPdfModal={showPdfModal} setShowPdfModal={setShowPdfModal} darkMode={darkMode} />
     </>
   );
 };

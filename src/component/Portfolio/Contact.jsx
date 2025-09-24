@@ -3,14 +3,14 @@ import { Mail, Phone, MapPin, Github, Code, Award, Layers, Zap, Calendar } from 
 
 const Contact = ({ darkMode }) => {
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "rahamananikmd@gmail.com", color: "from-red-400 to-pink-500" },
-    { icon: Phone, label: "Phone", value: "+880 1774 225 956", color: "from-green-400 to-emerald-500" },
+    { icon: Mail, label: "Email", value: "rahamananikmd@gmail.com", color: "from-red-400 to-pink-500", link: "mailto: rahamananikmd@gmail.com"},
+    { icon: Phone, label: "Phone", value: "+880 1774 225 956", color: "from-green-400 to-emerald-500", link: "tel:+8801774225956" },
     { icon: MapPin, label: "Location", value: "Dhaka, Bangladesh 🇧🇩", color: "from-blue-400 to-cyan-500" },
-    { icon: Github, label: "GitHub", value: "github.com/anikur", color: "from-purple-400 to-indigo-500" }
+    { icon: Github, label: "GitHub", value: "github.com/habibad", color: "from-purple-400 to-indigo-500", link: "https://github.com/habibad" }
   ];
 
   const stats = [
-    { label: "Epic Projects", value: "15+", icon: Code, color: "from-blue-500 to-purple-500" },
+    { label: "Epic Projects", value: "25+", icon: Code, color: "from-blue-500 to-purple-500" },
     { label: "Research Papers", value: "5+", icon: Award, color: "from-green-500 to-emerald-500" },
     { label: "Technologies", value: "25+", icon: Layers, color: "from-purple-500 to-pink-500" },
     { label: "Coffee Consumed", value: "∞", icon: Zap, color: "from-orange-500 to-red-500" }
@@ -42,7 +42,7 @@ const Contact = ({ darkMode }) => {
               </p>
 
               <div className="space-y-6">
-                {contactInfo.map(({ icon: Icon, label, value, color }, index) => (
+                {contactInfo.map(({ icon: Icon, label, value, color, link }, index) => (
                   <div
                     key={index}
                     className={`flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:scale-105 ${
@@ -53,10 +53,12 @@ const Contact = ({ darkMode }) => {
                       <Icon className="text-white" size={20} />
                     </div>
                     <div>
+                      <a href={link}>
                       <div className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                         {label}
                       </div>
                       <div className="text-lg font-semibold">{value}</div>
+                      </a>
                     </div>
                   </div>
                 ))}

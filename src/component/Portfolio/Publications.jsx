@@ -9,121 +9,96 @@ gsap.registerPlugin(ScrollTrigger);
 const Publications = ({ darkMode, scrollY }) => {
   const publicationsRef = useRef(null);
   const containerRef = useRef(null);
+  const q = gsap.utils.selector(containerRef);
   const data = publications;
 
   useLayoutEffect(() => {
     if (!publicationsRef.current || !containerRef.current || publications.length === 0) return;
 
+    // Use a GSAP context to scope selectors and ensure cleanup
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray('.publication_card');
-      const container = containerRef.current;
-      
-      if (cards.length === 0) return;
+      const cards = q('.publication_card');
+      if (!cards || cards.length === 0) return;
 
-      // Set initial positions for all cards except the first one
+      // Respect user preference for reduced motion
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Set base styles: stack cards in the same position
+      gsap.set(cards, { yPercent: 100, opacity: 0, scale: 0.98, transformOrigin: 'center center' });
+      gsap.set(cards[0], { yPercent: 0, opacity: 1, scale: 1 });
+
+      if (prefersReduced) {
+        // If reduced motion is preferred, make everything visible without animations
+        gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1 });
+        return;
+      }
+
+      // Create a master timeline pinned to the section. This performs far fewer DOM writes than a per-frame onUpdate loop.
+      const perCardDuration = 0.9; // how long each card animates in the timeline
+      const totalDuration = cards.length * perCardDuration + 0.8;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: publicationsRef.current,
+          start: 'top top',
+          end: () => `+=${Math.round(totalDuration * window.innerHeight)}`,
+          scrub: 0.6,
+          pin: true,
+          anticipatePin: 1,
+        }
+      });
+
+      // Animate cards sequentially. Each card fades up into view, then slightly shifts to a stacked position
       cards.forEach((card, index) => {
-        if (index === 0) {
-          // First card is immediately visible
-          gsap.set(card, {
-            yPercent: 0,
-            opacity: 1,
-            zIndex: cards.length,
-            scale: 1,
-          });
-        } else {
-          // Other cards start hidden
-          gsap.set(card, {
-            yPercent: 100,
-            opacity: 0,
-            zIndex: cards.length - index,
-            scale: 1 - (index * 0.02),
-          });
-        }
-      });
-
-      // Create the main scroll trigger that pins the entire section
-      const mainTrigger = ScrollTrigger.create({
-        trigger: publicationsRef.current,
-        start: "top top",
-        // Use full cards.length to give each card its own scroll segment
-        end: () => `+=${cards.length * window.innerHeight * 1.2}`,
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          if (cards.length === 1) return; // If only one card, keep it visible
-          
-          const progress = self.progress;
-          const totalCards = cards.length;
-          // Divide the scroll progress into totalCards segments so the last card has a valid range
-          const progressPerCard = 1 / totalCards;
-          
-          cards.forEach((card, index) => {
-            const cardStartProgress = index * progressPerCard;
-            const cardEndProgress = (index + 1) * progressPerCard;
-            
-            if (index === 0) {
-              // First card - always visible, gets stacked over time
-              const stackProgress = Math.min(progress / progressPerCard, 1);
-              gsap.set(card, {
-                yPercent: -stackProgress * 10,
-                opacity: 1,
-                zIndex: cards.length - Math.floor(progress * (totalCards - 1)),
-                scale: 1 - (stackProgress * 0.05),
-              });
-            } else {
-              // Other cards
-              if (progress >= cardStartProgress && progress <= cardEndProgress) {
-                // Card is currently animating in
-                const cardProgress = (progress - cardStartProgress) / progressPerCard;
-                gsap.set(card, {
-                  yPercent: (1 - cardProgress) * 100 - (index * 5),
-                  opacity: Math.max(0.3, cardProgress),
-                  zIndex: cards.length - index + Math.floor(cardProgress * 10),
-                  scale: 1 - (index * 0.02) + (cardProgress * 0.02),
-                });
-              } else if (progress > cardEndProgress) {
-                // Card is fully stacked
-                gsap.set(card, {
-                  yPercent: -index * 5,
-                  opacity: 1,
-                  zIndex: cards.length - index,
-                  scale: 1 - (index * 0.02),
-                });
-              } else {
-                // Card hasn't appeared yet
-                gsap.set(card, {
-                  yPercent: 100,
-                  opacity: 0,
-                  zIndex: cards.length - index,
-                  scale: 1 - (index * 0.02),
-                });
-              }
-            }
-          });
-        }
-      });
-
-      // Animate title on enter
-      gsap.fromTo('.publications-title', 
-        {
-          y: 50,
-          opacity: 0
-        },
-        {
-          y: 0,
+        const inner = card.querySelector('.publication_inner');
+        const showLabel = `card-${index}`;
+        tl.addLabel(showLabel);
+        tl.to(card, {
+          yPercent: 0,
           opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: publicationsRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
+          scale: 1,
+          zIndex: cards.length + index,
+          duration: perCardDuration,
+          ease: 'power2.out'
+        }, showLabel);
 
-    }, publicationsRef);
+        // After a short overlap, push the card slightly upward and scale down to create a stacked deck effect
+        // When the card moves into the stacked overlap, add an "overlap" class to the inner card to make
+        // its background black (safer than toggling inline styles). Remove it when the animation reverses.
+        tl.to(card, {
+          yPercent: -index * 5,
+          scale: 1 - index * 0.02,
+          duration: 0.4,
+          ease: 'power2.out',
+          onStart: () => { inner && inner.classList.add('overlap'); },
+          onReverseComplete: () => { inner && inner.classList.remove('overlap'); }
+        }, `>${0.25}`);
+      });
+
+      // When the whole timeline finishes, ensure any overlap classes are cleared
+      tl.eventCallback("onComplete", () => {
+        cards.forEach(card => {
+          const inner = card.querySelector('.publication_inner');
+          inner && inner.classList.remove('overlap');
+        });
+      });
+
+      // Title animation (subtle)
+      gsap.fromTo(q('.publications-title'), { y: 40, opacity: 0 },
+       { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out',
+         scrollTrigger: { trigger: publicationsRef.current, start: 'top 85%', toggleActions: 'play none none reverse' } });
+
+      // Cleanup: clear overlap classes, then kill timeline and ScrollTriggers when unmounting
+      return () => {
+        cards.forEach(card => {
+          const inner = card.querySelector('.publication_inner');
+          inner && inner.classList.remove('overlap');
+        });
+        tl && tl.kill();
+        ScrollTrigger.getAll().forEach(st => st.kill());
+      };
+
+    }, containerRef);
 
     return () => ctx.revert();
   }, [publications.length]);
@@ -156,7 +131,7 @@ const Publications = ({ darkMode, scrollY }) => {
                 className='publication_card absolute inset-0 flex items-center justify-center px-4'
               >
               <div
-                className={`w-full max-w-5xl p-8 rounded-3xl backdrop-blur-lg border transition-all duration-500 group relative overflow-hidden shadow-2xl ${darkMode
+                className={`publication_inner w-full max-w-5xl p-8 rounded-3xl backdrop-blur-lg border transition-all duration-500 group relative overflow-hidden shadow-2xl ${darkMode
                   ? 'bg-white/5 border-white/10 hover:border-emerald-400/50'
                   : 'bg-white/30 border-white/30 hover:border-blue-400/50'
                   }`}

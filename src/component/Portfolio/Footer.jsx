@@ -8,7 +8,7 @@ const Footer = ({ darkMode }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="mb-6">
           <div className="text-2xl font-black bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-2">
-            ANIKUR.DEV
+            Web Developer
           </div>
           <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             Crafting tomorrow's solutions with today's passion

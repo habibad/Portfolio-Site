@@ -15,25 +15,8 @@ import { projects, publications, skills } from './data';
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
-  // const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
-  // const [isAutoRotating, setIsAutoRotating] = useState(true);
-
-  // Auto-rotation effect
-  // useEffect(() => {
-  //   let interval;
-    
-  //   if (isAutoRotating) {
-  //     interval = setInterval(() => {
-  //       setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
-  //     }, 5000);
-  //   }
-    
-  //   return () => {
-  //     if (interval) clearInterval(interval);
-  //   };
-  // }, [isAutoRotating, projects.length]);
 
   // Scroll tracking
   useEffect(() => {
