@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Zap, Mail, Code, Award, Layers, Download, X } from 'lucide-react';
 import gsap from 'gsap';
-import Modal from '../modal/modal';
+import Modal from '../modal/Modal';
 const Hero = ({ scrollToSection, darkMode }) => {
   const [showPdfModal, setShowPdfModal] = useState(false);
   
